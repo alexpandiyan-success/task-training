@@ -1,0 +1,60 @@
+<?php 
+     if(empty($_SESSION['id'])){
+      header('Location: ../../auth/auth-views/login.php');
+    } 
+ ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register | To Do</title>
+  <?php require '../../assets/bootstrap.php'; ?>
+</head>
+
+<body>
+
+  <div>
+
+    <div class="container px-4 py-5" id="custom-cards">
+      <h2 class="pb-2 border-bottom">Register here</h2>
+
+      <div class="row row-cols-1 row-cols-lg-2 align-items-stretch g-4 py-5">
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-white bg-white rounded-5 shadow-lg" ">
+          <div class=" d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+
+            <form action="../auth-actions/user-register-action.php" method="POST">
+              <div class="form-group">
+                <label style="color: black;">Enter username</label><br><br>
+                <input type="text" name="username" class="form-control" placeholder="Enter username">
+              </div>
+              <br>
+              <div class="form-group">
+                <label style="color: black;">Enter password</label><br><br>
+                <input type="password" name="pass" class="form-control" placeholder="Enter password">
+              </div>
+              <br>
+              <button> Submit </button>
+
+            </form>
+            <br>
+            <p style="color:black;float:righ">Already have an accout ?<a href="login.php"> click here </a> </p>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+  </div>
+
+
+</body>
+
+</html>
