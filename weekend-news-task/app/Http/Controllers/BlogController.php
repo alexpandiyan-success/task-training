@@ -36,7 +36,7 @@ class BlogController extends Controller
         ];
         $request->validate([
             'blog' => 'required',
-            'file_path' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg',
+            'file_path' => 'required|mimes:jpeg,png,jpg,bmp,gif,svg',
             'content' => 'required',
         ],$message);
 
