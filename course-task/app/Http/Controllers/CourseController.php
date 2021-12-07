@@ -7,87 +7,94 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         return view('dashboard');
     }
 
-    public function indexCourse(){
+    public function indexCourse()
+    {
         return view('course-management');
     }
 
-    public function refreshCourse(){
+    public function refreshCourse()
+    {
         return view('add-course');
     }
 
     public function getAllCoursesTable()
     {
-       $getAllCourses =  Course::all();
+        $getAllCourses =  Course::all();
 
-       return view('edit-course',compact('getAllCourses'));
+        return view('edit-course', compact('getAllCourses'));
     }
 
     public function getAllCourses()
     {
-       $getAllCourses =  Course::all();
+        $getAllCourses =  Course::all();
 
-       return view('welcome',compact('getAllCourses'));
+        return view('welcome', compact('getAllCourses'));
     }
 
-    public function addCourse(Request $request){
-         
-         $request->validate([
-             'name' =>'required',
-             'price' =>'required|numeric',
-             'short_description' =>'required',
-             'detailed_description' =>'required',
-             'file_path' => 'required|mimes:jpeg,png,jpg,bmp,gif,svg',
-             'video_url' =>'required|url',
-         ]);
+    public function addCourse(Request $request)
+    {
 
-         $course = new Course();
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'short_description' => 'required',
+            'detailed_description' => 'required',
+            'file_path' => 'required|mimes:jpeg,png,jpg,bmp,gif,svg',
+            'video_url' => 'required|url',
+        ]);
 
-         $course->name = $request->name;
+        $course = new Course();
 
-         $course->price = $request->price;
+        $course->name = $request->name;
 
-         $course->short_description = $request->short_description;
+        $course->price = $request->price;
 
-         $course->detailed_description = $request->detailed_description;
+        $course->short_description = $request->short_description;
 
-         $course->video_url = $request->video_url;
+        $course->detailed_description = $request->detailed_description;
 
-         $image = request()->file('file_path');
+        $course->video_url = $request->video_url;
 
-         $assignName = time().'.'.$image->getClientOriginalExtension();
+        $image = request()->file('file_path');
 
-         $image->move('./images', $assignName);
+        $assignName = time() . '.' . $image->getClientOriginalExtension();
 
-         $course->image =  $assignName;
+        $image->move('./images', $assignName);
 
-         if ($course->save()) {
-            return view('add-course',['success' => 'Successfully added a course.!']);
+        $course->image =  $assignName;
+
+        if ($course->save()) {
+            return view('add-course', ['success' => 'Successfully added a course.!']);
         }
-
-        
     }
 
-    public function editCourse(){
+    public function editCourse()
+    {
 
-        return view('edit-course');    
+        return view('edit-course');
     }
 
-    public function showCourse($id){
+    public function showCourse($id)
+    {
 
         $getCourse = Course::with('courseLearnings')->FindOrFail($id);
 
-        return view('course-single',compact('getCourse'));
+        return view('course-single', compact('getCourse'));
     }
 
 
 
-    public function DeleteCourse(){
-
-        return view('edit-course');    
+    public function DeleteCourse($id)
+    {
+        $course = Course::find($id);
+        if ($course->delete()) {
+            return view('edit-course');
+        }
     }
 }

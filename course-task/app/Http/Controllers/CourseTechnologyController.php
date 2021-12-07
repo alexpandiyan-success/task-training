@@ -9,49 +9,60 @@ use App\Models\CourseTechnology;
 
 class CourseTechnologyController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('course-technologies-management');
     }
-    
-    public function getCourseTechnology(){
-         
+
+    public function getCourseTechnology()
+    {
+
         $getTechnology = Technology::all();
 
         $getCourse = Course::all();
 
-        return view('add-course-technologies',['technologies' => $getTechnology,'courses' => $getCourse]);
+        return view('add-course-technologies', ['technologies' => $getTechnology, 'courses' => $getCourse]);
     }
 
-    public function addCourseTechnology(Request $request){
-         
-         $request->validate([
-            'course_id' =>'required',
-            'technology_id' =>'required',
-         ]);
+    public function addCourseTechnology(Request $request)
+    {
 
-         $courseTech = new CourseTechnology;
+        $request->validate([
+            'course_id' => 'required',
+            'technology_id' => 'required',
+        ]);
 
-         $courseTech->course_id = $request->course_id;
+        $courseTech = new CourseTechnology;
 
-         $courseTech->technology_id = $request->technology_id;
+        $courseTech->course_id = $request->course_id;
 
-         if($courseTech->save())
-         {
+        $courseTech->technology_id = $request->technology_id;
+
+        if ($courseTech->save()) {
             $getTechnology = Technology::all();
             $getCourse = Course::all();
-            return view('add-course-technologies',['technologies' => $getTechnology,'courses' => $getCourse,'success' => 'Successfully added a course.!']);
-         }
+            return view('add-course-technologies', ['technologies' => $getTechnology, 'courses' => $getCourse, 'success' => 'Successfully added a course.!']);
+        }
     }
 
-    public function editCourseTecnology(){
+    public function editCourseTecnology()
+    {
         return view('edit-course-tecnology');
     }
 
-    public function showCourseTecnology(){
-        return view('edit-course-tecnology');
+    public function showCourseTecnology($id)
+    {
+        $show = CourseTechnology::findOrFail($id);
+
+        return ($show);
     }
 
-    public function DeleteCourse(){
-        return view('edit-course-tecnology');
+    public function DeleteCourseTechnology($id)
+    {
+        $courseTechnology = CourseTechnology::find($id);
+
+        if ($courseTechnology->delete()) {
+            return view('edit-course-tecnology');
+        }
     }
 }
