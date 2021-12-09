@@ -29,7 +29,18 @@ class Enquiry extends Model
 
     public function courseEnquiry()
       {
-        return $this->hasOne(Course::class,'id','course_id');
+        return $this->hasMany(Course::class,'id','course_id');
       }
+
+      public function getUser()
+      {
+        return $this->hasMany(User::class,'id','user_id');
+      }
+
+      public function getPayment()
+      {
+        return $this->hasMany(Payment::class);
+      }
+    
     
 }

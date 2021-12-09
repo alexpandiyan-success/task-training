@@ -16,6 +16,7 @@ class CreateEnquiriesTable extends Migration
         Schema::create('enquiries', function (Blueprint $table) {
             $table->id();
             $table->string('course_id')->references('id')->on('courses')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('email');
             $table->string('mobile_number');

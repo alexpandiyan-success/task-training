@@ -15,4 +15,14 @@ class Course extends Model
     {
         return $this->hasMany(CourseLearning::class);
     }
+
+    public function courseTitle()
+    {
+        return $this->hasMany(CourseTitle::class);
+    }
+
+    public function courseTechnologies()
+    {
+        return $this->hasMany(CourseTechnology::class);
+    }
 }

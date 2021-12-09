@@ -39,36 +39,22 @@
                     <!-- Card Body -->
 
                     <div class="tab-content" style="background-color: white;box-shadow: 0px 0px 10px 10px #ddd;">
-                    <h3 style="color: green;">   {{$success ?? ''}}</h3>
+                        <h3 style="color: green;"> {{$success ?? ''}}</h3>
 
-                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @endif
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <div class="tab-pane show active" id="input-types-preview" style="padding: 20px;">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form action="{{url('add-enquiry')}}" method="POST">
                                         @csrf
-
-                                        <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Name</label>
-                                            <input type="text" name="name" id="simpleinput" class="form-control">
-
-                                            <input type="text" hidden name="course_id" value="{{ $courseId }}" id="simpleinput" class="form-control">
-
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Email</label>
-                                            <input type="text" name="email" id="simpleinput" class="form-control">
-                                        </div>
-
 
                                         <div class="mb-3">
                                             <label for="simpleinput" class="form-label">Mobile Number</label>
@@ -114,10 +100,15 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="simpleinput" class="form-label">Interested Course</label>
-                                            <input type="text" name="interested_course" id="simpleinput" class="form-control">
+                                            <select name="interested_course" class="form-select" aria-label="Default select example">
+                                                <option value="" hidden>Select Interested Course</option>
+                                                @foreach($courseId as $course)
+                                                <option value="{{$course->id}}">{{$course->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                      
+
+
                                         <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                     </form>
                                 </div> <!-- end col -->
@@ -133,12 +124,12 @@
 
         </div>
     </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
 

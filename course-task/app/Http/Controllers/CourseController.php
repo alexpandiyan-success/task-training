@@ -46,7 +46,7 @@ class CourseController extends Controller
             'short_description' => 'required',
             'detailed_description' => 'required',
             'file_path' => 'required|mimes:jpeg,png,jpg,bmp,gif,svg',
-            'video_url' => 'required|url',
+            'video_url' => 'required',
         ]);
 
         $course = new Course();
@@ -82,17 +82,13 @@ class CourseController extends Controller
 
     public function showCourse($id)
     {
-
-        $getCourse = Course::with('courseLearnings')->FindOrFail($id);
-
-        return view('course-single', compact('getCourse'));
+        $getCourse = Course::with(['courseLearnings', 'courseTitle', 'courseTechnologies', 'courseTitle.courseTitleDetails'])->FindOrFail($id);
+        return view('course-single', ['students' => json_decode($getCourse, true), 'getCourse' => $getCourse]);
     }
-
-
 
     public function DeleteCourse($id)
     {
-        $course = Course::find($id);
+        $course = Course::findOrFail($id);
         if ($course->delete()) {
             return view('edit-course');
         }
