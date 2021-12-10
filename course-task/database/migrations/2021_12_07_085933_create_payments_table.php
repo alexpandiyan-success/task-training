@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->string('enquiry_id')->references('id')->on('enquiries')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('payment_method');
             $table->string('payment_mode');
-            $table->string('reference_number');
+            $table->string('reference_number')->nullable();
             $table->string('amount');
             $table->string('total_amount');
             $table->string('txn_number');

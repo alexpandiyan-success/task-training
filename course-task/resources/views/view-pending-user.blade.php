@@ -5,7 +5,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pending user') }}
+            {{ __('Pending Payment') }}
         </h2>
     </x-slot>
     <header class="p-3 bg-dark text-white">
@@ -51,19 +51,18 @@
   </thead>
   <tbody>
 @foreach($getPayment as $payment)
-
  <tr>
- <td> {{print_r($payment['name'])}}</td>
+ <td> {{($payment['name'])}}</td>
 
- <td> {{print_r($payment['email'])}}</td>
- <td> 9952192558 </td>
+ <td> {{($payment['email'])}}</td>
+ <td> {{($payment['mobile_number'])}} </td>
 
  @foreach ($payment['course_enquiry']  as $value) 
-    <td> {{print_r($value['name'])}}</td>
+    <td> {{($value['name'])}}</td>
  @endforeach
 
  @foreach ($payment['course_enquiry']  as $value) 
-    <td> {{print_r($value['price'])}}</td>
+    <td> {{($value['price'])}}</td>
  @endforeach
 
 
